@@ -4,7 +4,7 @@ from discord.ui import View
 import config
 import asyncpg
 
-exts = ["cogs.mod","cogs.test","cogs.error","cogs.welcome","cogs.dev","cogs.buttons","cogs.ticket","cogs.levelsystem"]
+exts = ["cogs.mod","cogs.test","cogs.error","cogs.welcome","cogs.dev","cogs.buttons","cogs.ticket","cogs.levelsystem","cogs.voicelog","cogs.roles"]
 
 class MyBot(commands.Bot):
     def __init__(self,command_prefix : str,intents:discord.Intents,**kwargs):
