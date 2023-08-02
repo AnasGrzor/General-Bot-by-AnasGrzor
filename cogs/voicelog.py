@@ -10,13 +10,19 @@ class Voicelog(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         current_time = datetime.datetime.now().strftime('%H:%M')
+        if member == self.bot.user:
+            return
         if before.channel != after.channel:
-            # User joined or left a voice channel
-            if after.channel:
-                await self.send_log_message(f"{member.name} joined voice channel {after.channel.name}-{current_time}",discord.Color.green())
+            if after.channel and before.channel:
+                # User switched voice channels
+                await self.send_log_message(f"{member.name} switched from {before.channel.mention} to {after.channel.mention}-{current_time}", discord.Color.blue())
+                # User joined a voice channel 
+            elif after.channel:
+                await self.send_log_message(f"{member.name} joined voice channel {after.channel.mention}-{current_time}",discord.Color.green())
+                # User left a voice channel
+            elif before.channel:
+                await self.send_log_message(f"{member.name} left voice channel {before.channel.mention}-{current_time}",discord.Color.red())
 
-            if before.channel:
-                await self.send_log_message(f"{member.name} left voice channel {before.channel.name}-{current_time}",discord.Color.red())
 
            
 
